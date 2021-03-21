@@ -1,0 +1,82 @@
+<CompuCell3D Revision="20200821" Version="4.2.4">
+   
+   <Metadata>
+      <NumberOfProcessors>1</NumberOfProcessors>
+      <DebugOutputFrequency>10</DebugOutputFrequency>
+   </Metadata>
+   
+   <Potts>
+      <Dimensions x="200" y="200" z="1"/>
+      <Steps>100000</Steps>
+      <Temperature>10.0</Temperature>
+      <NeighborOrder>1</NeighborOrder>
+   </Potts>
+   
+   <Plugin Name="CellType">
+      <CellType TypeId="0" TypeName="Medium"/>
+      <CellType TypeId="1" TypeName="T1"/>
+      <CellType Freeze="" TypeId="2" TypeName="Wall"/>
+   </Plugin>
+   
+   <Plugin Name="Volume">
+      <VolumeEnergyParameters CellType="T1" LambdaVolume="2.0" TargetVolume="50"/>
+      <VolumeEnergyParameters CellType="Wall" LambdaVolume="2.0" TargetVolume="50"/>
+   </Plugin>
+   
+   <Plugin Name="CenterOfMass"/>
+   
+   <Plugin Name="Contact">
+      <Energy Type1="Medium" Type2="T1">10.0</Energy>
+      <Energy Type1="T1" Type2="T1">20.0</Energy>
+      <Energy Type1="T1" Type2="Wall">50.0</Energy>
+      <NeighborOrder>2</NeighborOrder>
+   </Plugin>
+   
+   <Plugin Name="Chemotaxis">
+      <ChemicalField Name="F1">
+         <ChemotaxisByType id="chemo" ChemotactTowards="Medium" Lambda="0.0" Type="T1"/>
+      </ChemicalField>
+   </Plugin>
+   
+   <Plugin Name="LengthConstraint">
+      <LengthEnergyParameters id="length" CellType="T1" LambdaLength="0.0" TargetLength="0"/>
+   </Plugin>
+   
+   <Plugin Name="ConnectivityGlobal">
+      <FastAlgorithm/>
+      <ConnectivityOn Type="T1"/>
+   </Plugin>
+   
+   <Steppable Type="DiffusionSolverFE">
+      <DiffusionField Name="F1">
+         <DiffusionData>
+            <FieldName>F1</FieldName>
+            <GlobalDiffusionConstant>0.75</GlobalDiffusionConstant>
+            <DecayCoefficient CellType="Medium">5.4e-03</DecayCoefficient>
+         </DiffusionData>
+         <SecretionData>
+            <Secretion Type="T1">5.4e-03</Secretion>
+         </SecretionData>
+         <BoundaryConditions>
+            <Plane Axis="X">
+               <ConstantDerivative PlanePosition="Min" Value="0.0"/>
+               <ConstantDerivative PlanePosition="Max" Value="0.0"/>
+            </Plane>
+            <Plane Axis="Y">
+               <ConstantDerivative PlanePosition="Min" Value="0.0"/>
+               <ConstantDerivative PlanePosition="Max" Value="0.0"/>
+            </Plane>
+         </BoundaryConditions>
+      </DiffusionField>
+   </Steppable>
+   
+   <Steppable Type="UniformInitializer">
+      <Region>
+         <BoxMin x="13" y="13" z="0"/>
+         <BoxMax x="187" y="187" z="1"/>
+         <Gap>10</Gap>
+         <Width>7</Width>
+         <Types>T1</Types>
+      </Region>
+   </Steppable>
+</CompuCell3D>

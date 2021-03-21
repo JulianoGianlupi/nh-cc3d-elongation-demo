@@ -1,0 +1,5 @@
+<Simulation version="4.2.4">
+   <XMLScript Type="XMLScript">Simulation/ElongationDemo.xml</XMLScript>
+   <PythonScript Type="PythonScript">Simulation/ElongationDemo.py</PythonScript>
+   <Resource Type="Python">Simulation/ElongationDemoSteppables.py</Resource>
+</Simulation>

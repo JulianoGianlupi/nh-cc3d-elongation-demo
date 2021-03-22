@@ -8,7 +8,7 @@ Adapated from
     "Contact-inhibited chemotaxis in de novo and sprouting blood-vessel growth."
     PLoS Comput Biol 4.9 (2008): e1000163.
 
-Written by T.J. Sego, Ph.D.
+Written by T.J. Sego, Ph.D.; J. F. Gianlupi, MSci
 Biocomplexity Institute
 Indiana University
 Bloomington, IN
